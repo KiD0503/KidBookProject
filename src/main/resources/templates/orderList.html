@@ -1,0 +1,289 @@
+ <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="Kid Book">
+<meta name="keywords" content="Ogani, unica, creative, html">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Kid Book</title>
+<!-- Google Font -->
+<link
+	href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
+	rel="stylesheet">
+<!-- Css Styles -->
+<link rel="stylesheet" href="../HomePage/css/bootstrap.min.css"
+	type="text/css">
+<link rel="stylesheet" href="../HomePage/css/font-awesome.min.css"
+	type="text/css">
+<link rel="stylesheet" href="../HomePage/css/elegant-icons.css"
+	type="text/css">
+<link rel="stylesheet" href="../HomePage/css/nice-select.css"
+	type="text/css">
+<link rel="stylesheet" href="../HomePage/css/jquery-ui.min.css"
+	type="text/css">
+<link rel="stylesheet" href="../HomePage/css/owl.carousel.min.css"
+	type="text/css">
+<link rel="stylesheet" href="../HomePage/css/slicknav.min.css"
+	type="text/css">
+<link rel="stylesheet" href="../HomePage/css/style.css" type="text/css">
+<link rel="stylesheet" href="../HomePage/css/modal-account.css"
+	type="text/css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body>
+	<!-- Phần Header -->
+	<!-- Header Section Begin -->
+	<header class="header">
+		<div class="header__top">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-6 col-md-6">
+						<div class="header__top__left">
+							<ul>
+								<th:block sec:authorize="isAuthenticated()">
+									<li><i class="fa fa-envelope"></i>Hello <a
+										th:href="@{/admin/accountInfo}"
+										th:utext="${#request.userPrincipal.name}">..</a></li>
+								</th:block>
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-6">
+						<div class="header__top__right">
+							<div class="header__top__right__auth">
+								<th:block sec:authorize="!isAuthenticated()">
+									<a th:href="@{/admin/login}"><i class="fa fa-user"></i>Account</a>
+								</th:block>
+								<th:block sec:authorize="isAuthenticated()">
+									<a th:href="@{/admin/logout}">Logout</a>
+								</th:block>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3">
+					<div class="header__logo">
+						<a th:href="@{/}"><img src="../HomePage/img/logo.png" alt=""></a>
+					</div>
+				</div>
+				<div class="col-lg-9">
+					<nav class="header__menu">
+						<ul>
+							<li><a th:href="@{/}">Home</a></li>
+							<li><a th:href="@{/productList}">Shop Book</a></li>
+							<li><a th:href="@{/shoppingCart}"> My Cart </a></li>
+							<li><a th:href="@{/shoppingCartCustomer}">Check Out</a></li>
+							<th:block
+								sec:authorize="hasAnyRole('ROLE_MANAGER','ROLE_EMPLOYEE')">
+								<li class="active"><a th:href="@{/admin/orderList}"> Order List </a></li>
+							</th:block>
+							<th:block sec:authorize="hasRole('ROLE_MANAGER')">
+								<li><a th:href="@{/admin/product}"> Create Product </a>
+							</th:block>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</header>
+	<!-- Phần Header Section End -->
+	<!-- Breadcrumb Section Begin -->
+	<section class="breadcrumb-section set-bg"
+		data-setbg="../HomePage/img/book.jpg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<div class="breadcrumb__text">
+						<h2>KiD Book</h2>
+						<div class="breadcrumb__option">
+							<a th:href="@{/}">Home</a> <span>Order List</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Breadcrumb Section End -->
+	<!-- <div class="page-title">Order List</div>
+	<div>
+		Total Order Count: <span th:utext="${paginationResult.totalRecords}"></span>
+	</div>
+
+	<table border="1" style="width: 100%">
+		<tr>
+			<th>Order Num</th>
+			<th>Order Date</th>
+			<th>Customer Name</th>
+			<th>Customer Address</th>
+			<th>Customer Email</th>
+			<th>Amount</th>
+			<th>View</th>
+		</tr>
+		<tr th:each="orderInfo : ${paginationResult.list}">
+			<td th:utext="${orderInfo.orderNum}"></td>
+			<td
+				th:utext="${#dates.format(orderInfo.orderDate,'dd-MM-yyyy HH:mm')}"></td>
+			<td th:utext="${orderInfo.customerName}"></td>
+			<td th:utext="${orderInfo.customerAddress}"></td>
+			<td th:utext="${orderInfo.customerEmail}"></td>
+			<td style="color: red;"
+				th:utext="${#numbers.formatDecimal(orderInfo.amount,3,2,'COMMA')}">
+			</td>
+			<td><a th:href="@{|/admin/order?orderId=${orderInfo.id}|}">View</a></td>
+		</tr>
+	</table> -->
+	<br>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="shoping__cart__table">
+					<table>
+						<thead>
+							<tr>
+								<th>Order Num</th>
+								<th>Order Date</th>
+								<th>Customer Name</th>
+								<th>Customer Address</th>
+								<th>Customer Email</th>
+								<th>Amount</th>
+								<th>View</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="orderInfo : ${paginationResult.list}">
+								<td th:utext="${orderInfo.orderNum}"></td>
+								<td
+									th:utext="${#dates.format(orderInfo.orderDate,'dd-MM-yyyy HH:mm')}"></td>
+								<td th:utext="${orderInfo.customerName}"></td>
+								<td th:utext="${orderInfo.customerAddress}"></td>
+								<td th:utext="${orderInfo.customerEmail}"></td>
+								<td style="color: red;"
+									th:utext="${#numbers.formatDecimal(orderInfo.amount,3,2,'COMMA')}">
+								</td>
+								<td><a th:href="@{|/admin/order?orderId=${orderInfo.id}|}">View</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="product__pagination"
+			th:if="${paginationResult.totalPages > 1}">
+			<th:block th:each="page: ${paginationResult.navigationPages}">
+				<a th:if="${page != -1}" class="nav-item"
+					th:href="@{|/admin/orderList?page=${page}|}" th:utext="${page}"></a>
+
+				<span th:if="${page == -1}" class="nav-item"> ... </span>
+			</th:block>
+		</div>
+
+	</div>
+	<!-- Js Plugins -->
+	<script src="../HomePage/js/jquery-3.3.1.min.js"></script>
+	<script src="../HomePage/js/bootstrap.min.js"></script>
+	<script src="../HomePage/js/jquery.nice-select.min.js"></script>
+	<script src="../HomePage/js/jquery-ui.min.js"></script>
+	<script src="../HomePage/js/jquery.slicknav.js"></script>
+	<script src="../HomePage/js/mixitup.min.js"></script>
+	<script src="../HomePage/js/owl.carousel.min.js"></script>
+	<script src="../HomePage/js/main.js"></script>
+	<script type="text/javascript" src="../HomePage/js/modal-account.js"></script>
+
+	<script>
+
+		let __baseUrl = 'https://livechat.fpt.ai/v35/src';
+
+		let prefixNameLiveChat = 'KiD Book';
+		let objPreDefineLiveChat = {
+					appCode: 'd0acfdeb9b1b229b5109dac9dd185381',
+					themes: '',
+					appName: prefixNameLiveChat ? prefixNameLiveChat : 'Live support',
+					thumb: '',
+					icon_bot: ''
+				},
+				appCodeHash = window.location.hash.substr(1);
+		if (appCodeHash.length == 32) {
+			objPreDefineLiveChat.appCode = appCodeHash;
+		}
+
+		let fpt_ai_livechat_script = document.createElement('script');
+		fpt_ai_livechat_script.id = 'fpt_ai_livechat_script';
+		fpt_ai_livechat_script.src = __baseUrl + '/static/fptai-livechat.js';
+		document.body.appendChild(fpt_ai_livechat_script);
+
+		let fpt_ai_livechat_stylesheet = document.createElement('link');
+		fpt_ai_livechat_stylesheet.id = 'fpt_ai_livechat_script';
+		fpt_ai_livechat_stylesheet.rel = 'stylesheet';
+		fpt_ai_livechat_stylesheet.href = __baseUrl + '/static/fptai-livechat.css';
+		document.body.appendChild(fpt_ai_livechat_stylesheet);
+
+		fpt_ai_livechat_script.onload = function () {
+			fpt_ai_render_chatbox(objPreDefineLiveChat, __baseUrl, 'livechat.fpt.ai:443');
+		}
+	</script>
+
+</body>
+<!-- Footer Section Begin -->
+<footer class="footer spad">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-3 col-md-6 col-sm-6">
+				<div class="footer__about">
+					<div class="footer__about__logo">
+						<a th:href="@{/}"><img src="HomePage/img/logo.png" alt=""></a>
+					</div>
+					<ul>
+						<li>Address: Ngo Quyen Street</li>
+						<li>Phone: +84 965.920.507</li>
+						<li>Email: hieunv2111@gmail.com</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
+				<div class="footer__widget">
+					<h6>Useful Links</h6>
+					<ul>
+						<li><a href="#">About Us</a></li>
+						<li><a href="#">About Our Shop</a></li>
+						<li><a href="#">Secure Shopping</a></li>
+						<li><a href="#">Delivery infomation</a></li>
+						<li><a href="#">Privacy Policy</a></li>
+						<li><a href="#">Our Sitemap</a></li>
+					</ul>
+					<ul>
+						<li><a href="#">Who We Are</a></li>
+						<li><a href="#">Our Services</a></li>
+						<li><a href="#">Projects</a></li>
+						<li><a href="#">Contact</a></li>
+						<li><a href="#">Innovation</a></li>
+						<li><a href="#">Testimonials</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-12">
+				<div class="footer__widget">
+					<h6>Join Our Newsletter Now</h6>
+					<p>Get E-mail updates about our latest shop and special offers.</p>
+					<form action="#">
+						<input type="text" placeholder="Enter your mail">
+						<button type="submit" class="site-btn">Subscribe</button>
+					</form>
+					<div class="footer__widget__social">
+						<a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i
+							class="fa fa-instagram"></i></a> <a href="#"><i
+							class="fa fa-twitter"></i></a> <a href="#"><i
+							class="fa fa-pinterest"></i></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
+<!-- Footer Section End -->
+</html>

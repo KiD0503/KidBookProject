@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" th:href="@{/login.css}">
+</head>
+<body>
+	<div class="wrapper fadeInDown">
+		<div id="formContent">
+			<!-- Tabs Titles -->
+			<th:block
+				th:if="${#session != null && #session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION') != null}">
+				<div th:if="${#request.getParameter('error') == 'true'}"
+					style="color: red; margin: 10px 0px;">
+					Login Failed!!!<br /> Reason : <span
+						th:utext="${#session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION').message}"></span>
+				</div>
+			</th:block>
+			<!-- Icon -->
+			<div class="fadeIn first">
+				<a th:href="@{/}"><img
+					src="/logo.png"
+					id="icon" alt="User Icon" /></a>
+			</div>
+
+			<!-- Login Form -->
+			<form method="POST" th:action="@{/j_spring_security_check}">
+				<input type="text" id="login" class="fadeIn second" name="userName"
+					placeholder="Username"> <input type="password"
+					id="password" class="fadeIn third" name="password"
+					placeholder="Password"> <input type="submit"
+					class="fadeIn fourth" value="Log In">
+			</form>
+			<span class="error-message" th:utext="${error}"></span>
+			<div id="formFooter">
+				<p>Dont have account?</ap> <a style="text-decoration: none"
+					th:href="@{/admin/signup}"><b>SIGN UP</b></a>
+			</div>
+
+		</div>
+	</div>
+</body>
+</html>
